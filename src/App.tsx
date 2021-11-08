@@ -1,13 +1,18 @@
 import React from 'react';
+import { BrowserRouter } from "react-router-dom";
 import './App.css';
+import ErrorHandler from './components/UI/Error';
+import HaderComponent from './components/UI/Hader';
+import { AppStyled } from './styled';
 
 function App() {
-  const blblb = ''
-
   return (
-    <div className="App">
-      <div className='flex justify-center'>Test</div>
-    </div>
+    <AppStyled className="App">
+      <BrowserRouter>
+        <HaderComponent />
+        <ErrorHandler />
+      </BrowserRouter>
+    </AppStyled>
   );
 }
 

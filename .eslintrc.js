@@ -31,6 +31,7 @@ module.exports = {
     }
   ],
   extends: [
+    // 'airbnb-base',
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:jsx-a11y/recommended",
@@ -52,9 +53,22 @@ module.exports = {
   root: true, // For configuration cascading.
   rules: {
     indent: [
-      "error",
+      "warn",
       2
     ],
+    // "no-unused-vars": [
+    //   "error", {
+    //     "vars": "all",
+    //     "args": "after-used",
+    //     "ignoreRestSiblings": false
+    //   }
+    // ]
+    "no-unused-vars": "off", // не использованна переменная в typescript
+    "@typescript-eslint/no-unused-vars": ["warn", {
+      // "vars": "all",
+      // "args": "after-used",
+      // "ignoreRestSiblings": false
+    }]
   },
   settings: {
     react: {

@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react';
 
-export const CardItem = () => {
-  const temp = [];
+const CardItem = () => {
 
   return (
     <div>
@@ -9,3 +8,5 @@ export const CardItem = () => {
     </div>
   )
 }
+
+export default CardItem;
