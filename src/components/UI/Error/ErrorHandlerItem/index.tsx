@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { StandartComponentProps } from '../../Hader';
 import { ErrorHandlerItemStyled } from './styled';
 
@@ -18,14 +18,21 @@ export interface ErrorHandlerItemInterface {
 
 interface StandartErrorHandlerItemInterface extends StandartComponentProps {
   error: ErrorHandlerItemInterface,
-  deleteItemOnID: (id: string) => void,
+  deleteItemOnID: (id: number) => void,
 }
 
 function ErrorHandlerItem({ error, deleteItemOnID }: StandartErrorHandlerItemInterface) {
-  deleteItemOnID
+  useEffect(() => {
+    setTimeout(() => {
+      deleteItemOnID(error.id)
+    }, error.timeout)
+  }, [deleteItemOnID, error.id, error.timeout])
+
   return (
-    <ErrorHandlerItemStyled>
-      {error.message}
+    <ErrorHandlerItemStyled className={`flex mt-3 rounded relative`}>
+      {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus */}
+      <span onClick={(): void => deleteItemOnID(error.id)} onKeyUp={(_) => _} role="button" className="absolute right-2 cursor-pointer">x</span>
+      <span className={`${error.mode} flex w-full border border-white p-3 rounded`}>{error.message}</span>
     </ErrorHandlerItemStyled>
   )
 }

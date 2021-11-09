@@ -10,7 +10,7 @@ export interface StandartComponentProps {
 
 export default function HaderComponent({ className }: StandartComponentProps) {
   return (
-    <HaderStyled className={`${className || ''} w-full sticky bg-gradient-cards-yellow-hader`}>
+    <HaderStyled className={`${className || ''} w-full sticky bg-cards-yellow-hader`}>
       <div className="flex container m-auto p-4 rounded-md">
         <Link to="/">
           <span>Home</span>

@@ -68,7 +68,10 @@ module.exports = {
       // "vars": "all",
       // "args": "after-used",
       // "ignoreRestSiblings": false
-    }]
+    }],
+    "jsx-a11y/aria-role": [2, {
+      "ignoreNonDOM": true
+    }],
   },
   settings: {
     react: {
