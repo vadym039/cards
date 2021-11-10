@@ -13,7 +13,6 @@ interface objectStackIterface {
   [key: string]: stackInterface
 }
 
-
 const ERRORS_STACK: objectStackIterface = {
   USER_EXIST: {
     message: 'User already exists',
@@ -62,7 +61,7 @@ const ERRORS_STACK: objectStackIterface = {
   }
 }
 
-interface initialStateInterface extends stackInterface {
+export interface initialStateInterface extends stackInterface {
   errors: Array<ErrorHandlerItemInterface>,
   count: number
 }
@@ -75,7 +74,7 @@ const initialStateSlice: initialStateInterface = {
   count: 0
 }
 
-const generateIdTimeout = (timeout: number): Pick<ErrorHandlerItemInterface, "id" | "timeout"> => {
+const generateIdTimeout = (timeout?: number): Pick<ErrorHandlerItemInterface, "id" | "timeout"> => {
   return {
     id: Date.now(),
     timeout: timeout || initialStateSlice.timeout
@@ -102,7 +101,9 @@ const errorHandlerSlice = createSlice({
         message = payload
       } else {
         message = payload.message
-        mode = ErrorMode[payload.mode] ?? ErrorMode.info
+        if (Object.keys(ErrorMode).includes(payload?.mode)) {
+          mode = payload.mode
+        }
         timeout = payload.timeout ?? initialStateSlice.timeout
       }
       if (!message) {
@@ -110,31 +111,31 @@ const errorHandlerSlice = createSlice({
       }
       state.errors.push({ timeout, message, mode, id: Date.now() })
     },
-    userExistCreator(state: initialStateInterface, action: PayloadAction<number>) {
-      state.errors.push({ ...ERRORS_STACK['USER_EXIST'], ...generateIdTimeout(action.payload) })
+    userExistCreator(state: initialStateInterface, action: PayloadAction<number | undefined>) {
+      state.errors.push({ ...ERRORS_STACK['USER_EXIST'], ...generateIdTimeout(action?.payload) })
     },
-    userNotFoundCreator(state: initialStateInterface, action: PayloadAction<number>) {
+    userNotFoundCreator(state: initialStateInterface, action: PayloadAction<number | undefined>) {
       state.errors.push({ ...ERRORS_STACK['USER_NOT_FOUND'], ...generateIdTimeout(action.payload) })
     },
-    noEmailAndPasswordCreator(state: initialStateInterface, action: PayloadAction<number>) {
+    noEmailAndPasswordCreator(state: initialStateInterface, action: PayloadAction<number | undefined>) {
       state.errors.push({ ...ERRORS_STACK['NO_EMAIL_AND_PASSWORD'], ...generateIdTimeout(action.payload) })
     },
-    wrongEmailPasswordCreator(state: initialStateInterface, action: PayloadAction<number>) {
+    wrongEmailPasswordCreator(state: initialStateInterface, action: PayloadAction<number | undefined>) {
       state.errors.push({ ...ERRORS_STACK['WRONG_EMAIL_PASSWORD'], ...generateIdTimeout(action.payload) })
     },
-    notAuthorizedCreator(state: initialStateInterface, action: PayloadAction<number>) {
+    notAuthorizedCreator(state: initialStateInterface, action: PayloadAction<number | undefined>) {
       state.errors.push({ ...ERRORS_STACK['NOT_AUTHORIZED'], ...generateIdTimeout(action.payload) })
     },
-    invalidTokenCreator(state: initialStateInterface, action: PayloadAction<number>) {
+    invalidTokenCreator(state: initialStateInterface, action: PayloadAction<number | undefined>) {
       state.errors.push({ ...ERRORS_STACK['INVALID_TOKEN'], ...generateIdTimeout(action.payload) })
     },
-    unknownErrorCreator(state: initialStateInterface, action: PayloadAction<number>) {
+    unknownErrorCreator(state: initialStateInterface, action: PayloadAction<number | undefined>) {
       state.errors.push({ ...ERRORS_STACK['UNKNOWN_ERROR'], ...generateIdTimeout(action.payload) })
     },
-    noTodosFindedCreator(state: initialStateInterface, action: PayloadAction<number>) {
+    noTodosFindedCreator(state: initialStateInterface, action: PayloadAction<number | undefined>) {
       state.errors.push({ ...ERRORS_STACK['NO_TODOS_FINDED'], ...generateIdTimeout(action.payload) })
     },
-    refreshTokenExpiredCreator(state: initialStateInterface, action: PayloadAction<number>) {
+    refreshTokenExpiredCreator(state: initialStateInterface, action: PayloadAction<number | undefined>) {
       state.errors.push({ ...ERRORS_STACK['REFRESH_TOKEN_EXPIRED'], ...generateIdTimeout(action.payload) })
     }
   }

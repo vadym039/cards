@@ -1,57 +1,21 @@
-import React, { useState } from 'react'
-// import { useDispatch, useSelector } from 'react-redux';
+import React from 'react'
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { ErrorHandlerStyled } from './styled';
-import ErrorHandlerItem, { ErrorHandlerItemInterface, ErrorMode } from './ErrorHandlerItem/index';
+import ErrorHandlerItem from './ErrorHandlerItem/index';
+import { useAppDispatch, useAppSelector } from '../../../store'
+import { deleteErrorIDCreator } from '../../../store/ErrorHandlerReducer';
 
 function ErrorHandler() {
-  // const errors = useSelector(state => state.error.errors)
-  const [errors, setErrors] = useState<Array<ErrorHandlerItemInterface>>([{
-    id: 1,
-    timeout: 40000,
-    message: 'test',
-    mode: ErrorMode.warning
-  }, {
-    id: 2,
-    timeout: 40000,
-    message: 'test2',
-    mode: ErrorMode.error
-  }, {
-    id: 3,
-    timeout: 40000,
-    message: 'test2',
-    mode: ErrorMode.info
-  }, {
-    id: 4,
-    timeout: 40000,
-    message: 'test2',
-    mode: ErrorMode.success
-  }]);
+  const errors = useAppSelector(state => state.error.errors);
   const transition = 500;
-  // const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   function deleteItemOnID(id: number): void {
-    // dispatch(deleteErrorIDCreator(id))
-    setErrors(prev => {
-      return prev.filter(val => val.id !== id)
-    })
-    id
-  }
-
-  function addErrorHandler() {
-    setErrors(prev => {
-      return [...prev || [], {
-        id: Number(prev?.length - 1 + 1),
-        timeout: 40000,
-        message: 'test2',
-        mode: ErrorMode.warning
-      }]
-    })
+    dispatch(deleteErrorIDCreator(id))
   }
 
   return (
     <>
-      <button onClick={addErrorHandler}>addErrorHandler</button>
       {!!errors?.length &&
         <ErrorHandlerStyled className="fixed w-80 right-0 mt-6 p-3 flex-col max-h-80vh overflow-y-auto overflow-x-hidden" transition={transition} >
           <TransitionGroup
