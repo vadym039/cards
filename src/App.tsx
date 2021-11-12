@@ -4,6 +4,7 @@ import './App.css';
 import ErrorHandler from './components/UI/Error';
 import HaderComponent from './components/UI/Hader';
 import { AppStyled } from './styled';
+import AppRoutes from './components/Routes/index';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <BrowserRouter>
         <HaderComponent />
         <ErrorHandler />
+        <AppRoutes></AppRoutes>
       </BrowserRouter>
     </AppStyled>
   );

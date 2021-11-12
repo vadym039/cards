@@ -13,6 +13,8 @@ interface objectStackIterface {
   [key: string]: stackInterface
 }
 
+// type objectStackIterface = Record<string, stackInterface>
+
 const ERRORS_STACK: objectStackIterface = {
   USER_EXIST: {
     message: 'User already exists',

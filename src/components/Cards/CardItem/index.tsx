@@ -1,11 +1,12 @@
 import React from 'react';
+import { CardItemtyled } from './styled';
 
 const CardItem = () => {
 
   return (
-    <div>
+    <CardItemtyled>
 
-    </div>
+    </CardItemtyled>
   )
 }
 
